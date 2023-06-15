@@ -1,0 +1,42 @@
+-Cucumber Projesi oluşturmak istediğimizde yapmamız geren adımlar:
+ 1-Öncelikle dependency leri pom.xml dosyamıza yüklemiz gerekir
+    (selenium-java,webdrivermanager,cucumber-java,cucumber-jUnit)
+ 2-Sonra file->settings->plugins->marketplace den cucumber ve gherkin pluginlerini yüklemimiz gerekir
+ 3-Test->java->techproed->4 tane package oluştururuz
+    3.1-pages-> Locatelerimizi bu package altında tutarız
+    3.2-stepDefinition-> Yazdığımız Test adımlarının kodlarını tutarız
+    3.3-utilities->Projemiz için oluşturmuş olduğumuz Driver class'larını bu package'ta tutarız
+    3.4-runners->Bu package altında istediğimiz senaryoları çalıştırır ve raporlar alabiliriz
+ 4-Test package' ı altında Gherkin language kullanarak yazacağımız .feature file'lar için resources package'ı oluştururuz
+ 5-Projemizdeki data'ları bir yerde toplamak için .properties uzantılı dosya oluştururuz
+    (proje sevisinde bu dosyamızı oluştururuz)
+ 6-.feature file'lar için resources package'ı altında features isminde bir package daha oluştururuz
+ 7- features package'ı üstene gelip sağtıklayıp new file ile bir feature uzantılı file oluşturalım
+
+
+
+ 1- Parallel Testing yapabilmek icin oncelikle sure-file plugin`i pom.xml dosyamiza eklememiz gerekiyor.
+ <build>
+     <plugins>
+         <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-surefire-plugin</artifactId>
+             <version>3.0.0</version>
+             <configuration>
+                 <parallel>methods</parallel>
+                 <threadCount>2</threadCount> <!--aynı anda 2 browser çalıştırılacağı anlamına gelir. -->
+                 <perCoreThreadCount>false</perCoreThreadCount>
+                 <forkCount>2</forkCount> <!-- iki ayrı işlemi başlatır ve her biri farklı bir test paketi çalıştırır. Bu, testlerin daha hızlı tamamlanmasını sağlar. Ancak, bu ayarın artırılması, sistemin kaynaklarını tüketebilir ve performans sorunlarına neden olabilir. -->
+                 <reuseForks>true</reuseForks> <!--Maven önceki testlerde oluşturulmuş işlemleri yeniden kullanır -->
+                 <includes>
+                     <include>**/runners/*Runner*.java</include>
+                 </includes>
+                 <testFailureIgnore>true</testFailureIgnore> <!--testin başarısız olmasına rağmen diğer testlere devam eder ve sonunda tüm testleri çalıştırır. -->
+             </configuration>
+         </plugin>
+     </plugins>
+ </build>
+ 2- Ayni anda farkli scenario`lar calistirabilmek icin bir tane daha Runner1 isminde class olusturduk.
+ (3 farkli scenario calistirmak istersek 3 adet runner class`i olmali)
+ 3- tags parameter`ina hangi scenario`lari calistiracaksak onlari belirttik.
+ 4-Terminali acarak mvn clean (targeti siler) verify (toparlar ve testleri calistirir) ayni anda scenario`larimizi run ederiz.
