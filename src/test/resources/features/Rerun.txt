@@ -1,0 +1,13 @@
+/*
+  rerun plugin kullanımında plugin parametresinin içine txt dosyamısın yolunu belirtiriz.
+  feature parametresinin içinede aynı yolu kopyalarız ve başına @ işareti koymalıyız.
+  feature parametresi ile direk dosyayı gördüğü için bu class'da tags parametresine gerek yoktur.
+  Böylelikle fail olan senaryolarımızın ismi ve satır numarası txt dosyamızın içine kaydedilir.
+  Ve FailedRun class'ından run yaptığımız zaman txt dosyamızın içindeki fail olan scenariyolar
+  tekrar çalışacaktır. Fail olan scenariyolarımızdaki hata düzeltildikten sonra txt dosyasının
+  içindeki bilgiler silinir.
+
+
+  <!--plugin eklemek için: önce build tagı, sonra aralarına plugins tagı eklenir; plugins.lerin arasına plugin eklenir -->
+
+  */
